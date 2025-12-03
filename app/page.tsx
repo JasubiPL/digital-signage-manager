@@ -1,8 +1,8 @@
+"use client"
+
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return (
-      <>
-        <div>Welcome to Digital Signage Manager</div>
-      </>
-  );
+  redirect('/campanias-etn')
 }
+

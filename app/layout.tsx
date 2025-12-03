@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { MainNavBar } from "./components/MainNavBar";
-
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,13 +10,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <header className="w-full font-bold bg-red-700 text-white p-4">
-        <Link href="/" className="text-xl">Digital Signage Manager</Link>
-      </header>
+    <html lang="es" suppressHydrationWarning>
       <body className="flex flex-col items-center">
-        <MainNavBar />
-        <main className="w-full max-w-5xl p-4">
+        <header className="w-full font-bold bg-red-700 text-white p-4">
+          <Link href="/" className="text-xl">Digital Signage Manager</Link>
+        </header> 
+        <main className="w-full max-w-5xl">
         {children}
         </main>
       </body>

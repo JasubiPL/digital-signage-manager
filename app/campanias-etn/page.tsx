@@ -1,9 +1,10 @@
-import RootLayout from "../layout";
+import { MainNavBar } from "../components/MainNavBar";
 
 export default function EtnCampaignsPage() {
   return (
-    <RootLayout>
+    <>
+      <MainNavBar previusPage="/campanias-costaline" nextPage="/campanias-gho" title="Campañas en ETN" />
       <div>Etn Campaigns Page</div>
-    </RootLayout>
+    </>
   );
 }
