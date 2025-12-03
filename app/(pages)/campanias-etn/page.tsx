@@ -17,7 +17,7 @@ export default function EtnCampaignsPage() {
           <ul className="grid gap-4">
             {data && data.map((campaign: { url: string; name: string, endDate: string }) => (
               <li 
-                className="flex gap-4 p-4 bg-gray-100 rounded-xl"
+                className="flex gap-4 p-2 bg-gray-100 rounded-xl"
                 key={campaign.name}
               >
                 <div className="w-24 aspect-video relative rounded-lg overflow-hidden">
@@ -29,8 +29,8 @@ export default function EtnCampaignsPage() {
                 />
                 </div>
                 <section className="flex flex-col justify-center">
-                  <p className="text-red-500  text-xl">{campaign.name}</p>
-                  <p className=" text-sm">
+                  <p className="text-red-500 text-xl">{campaign.name}</p>
+                  <p className=" text-xs">
                     Fin de campaña: {campaign.endDate}
                     </p>
                 </section>
