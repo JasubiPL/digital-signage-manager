@@ -1,4 +1,4 @@
-import { MainNavBar } from "../components/MainNavBar";
+import { MainNavBar } from "../../components/MainNavBar";
 
 export default function EtnCampaignsPage() {
   return (
