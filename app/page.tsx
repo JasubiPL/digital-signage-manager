@@ -1,8 +1,16 @@
 "use client"
 
 import { redirect } from 'next/navigation'
+import {useContext, useEffect} from 'react'
+
+import { CampaignsPageContext } from './context/campaignsPageProvider';
 
 export default function Home() {
-  redirect('/campanias-etn')
+  const {saveCurrentPage} = useContext(CampaignsPageContext);
+
+  useEffect(() => {
+    saveCurrentPage(0);
+  }, [saveCurrentPage]);
+  redirect("/campanias-etn");
 }
 

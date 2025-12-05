@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default function EtnCampaignsPage() {
   const { data = [], loading } = useFetch('/api/etn-campaigns');
-  console.log(data);
   return (
     <>
       {loading ? (

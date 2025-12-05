@@ -1,20 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
 import { 
   MdOutlineKeyboardArrowRight, 
   MdOutlineKeyboardArrowLeft 
 } from "react-icons/md";
 
+import { CampaignsPageContext } from "../context/campaignsPageProvider";
+
 /**
  * List of brand identifiers used for navigation.
  * @constant {string[]}
  */
-const LIST_OF_BRANDS: string[] = ["etn", "gho", "costaline"];
+const LIST_OF_BRANDS: string[] = ["etn", "costaline", "gho",];
+
 
 export const ActiveCampaignsNav = () => {
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const {contextPage, saveCurrentPage} = useContext(CampaignsPageContext);
   const router = useRouter();
 
   /**
@@ -22,11 +26,11 @@ export const ActiveCampaignsNav = () => {
    * @returns {void}
    */
   const previousPage = (): void => {
-    let newPage = currentPage - 1;
+    let newPage = contextPage - 1;
     if (newPage < 0) {
       newPage = LIST_OF_BRANDS.length - 1;
     }
-    setCurrentPage(newPage);
+    saveCurrentPage(newPage);
     router.push(`/campanias-${LIST_OF_BRANDS[newPage]}`);
   };
 
@@ -35,11 +39,11 @@ export const ActiveCampaignsNav = () => {
    * @returns {void}
    */
   const nextPage = (): void => {
-    let newPage = currentPage + 1;
+    let newPage = contextPage + 1;
     if (newPage >= LIST_OF_BRANDS.length) {
       newPage = 0;
     }
-    setCurrentPage(newPage);
+    saveCurrentPage(newPage);
     router.push(`/campanias-${LIST_OF_BRANDS[newPage]}`);
   };
 
@@ -49,7 +53,7 @@ export const ActiveCampaignsNav = () => {
         <button onClick={previousPage} className="bg-transparent border-none">
           <MdOutlineKeyboardArrowLeft className="text-3xl fill-red-700 bg-white rounded-full"/>
         </button>
-        <p className="text-lg text-white">Campañas activas {LIST_OF_BRANDS[currentPage].toUpperCase()}</p>
+        <p className="text-lg text-white">Campañas activas</p>
         <button onClick={nextPage} className="bg-transparent border-none">
           <MdOutlineKeyboardArrowRight className="text-3xl fill-red-700 bg-white rounded-full"/>
         </button>

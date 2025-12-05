@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import CampaignsPageProvider from "./context/campaignsPageProvider";
 
 /**
  * Metadata for the application
@@ -19,12 +20,14 @@ export const metadata: Metadata = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body className="flex flex-col items-center">
-        <main className="w-full max-w-5xl">
-        {children}
-        </main>
-      </body>
-    </html>
+    <CampaignsPageProvider>
+      <html lang="es" suppressHydrationWarning>
+        <body className="flex flex-col items-center">
+          <main className="w-full max-w-5xl">
+          {children}
+          </main>
+        </body>
+      </html>
+    </CampaignsPageProvider>
   );
 }
