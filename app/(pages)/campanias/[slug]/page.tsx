@@ -1,8 +1,8 @@
 "use client"
 import { useFetch } from "@/app/hooks/useFetch";
-import Image from "next/image";
 import { use } from "react";
 import { Geist } from "next/font/google";
+import Image from "next/image";
 
 const geist = Geist({ subsets: ['latin'], weight: '500' });
 
@@ -19,21 +19,13 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
    * Fetch campaign data for the specified brand slug
    */
   const { data = [], loading } = useFetch(`/api/campaigns?brand=${slug}`);
+
   
   return (
       loading ? (
         <div>Cargando campañas...</div>
       ) : (
-        <main className="py-4 px-2">
-            <header className="flex mb-6">
-              <Image
-                src={`/brands/logo-${slug}.webp`} 
-                alt={`${slug} logo`} 
-                width={200}
-                height={30}
-                loading="eager"
-              />
-            </header>
+        <main className="px-2">
           <section className="">
             <ul className="grid rounded-xl overflow-hidden gap-0.5">
               {data && data.map((campaign: { url: string; name: string, endDate: string }) => (

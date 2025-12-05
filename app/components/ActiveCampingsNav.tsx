@@ -1,14 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-
-import { 
-  MdOutlineKeyboardArrowRight, 
-  MdOutlineKeyboardArrowLeft 
-} from "react-icons/md";
-
-import { CampaignsPageContext } from "../context/campaignsPageProvider";
+import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { Geist } from "next/font/google";
+const geist = Geist({ subsets: ['latin'], weight: '400' });
 
 /**
  * List of brand identifiers used for navigation.
@@ -18,47 +13,41 @@ const LIST_OF_BRANDS: string[] = ["etn", "costaline", "gho",];
 
 
 export const ActiveCampaignsNav = () => {
-  const {contextPage, setContextPage} = useContext(CampaignsPageContext);
+  const pathname = usePathname();
   const router = useRouter();
 
-  /**
-   * Navigate to the previous page in the list of brands.
-   * @returns {void}
-   */
-  const previousPage = (): void => {
-    let newPage = contextPage - 1;
-    if (newPage < 0) {
-      newPage = LIST_OF_BRANDS.length - 1;
-    }
-    setContextPage(newPage);
-    router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
-  };
+  const [activeIndex, setActiveIndex] = useState(() => {
+    const slug = pathname.split("/campanias/")[1];
+    const index = LIST_OF_BRANDS.indexOf(slug)
+    return index;
+  });
 
-  /**
-   * Navigate to the next page in the list of brands.
-   * @returns {void}
-   */
-  const nextPage = (): void => {
-    let newPage = contextPage + 1;
-    if (newPage >= LIST_OF_BRANDS.length) {
-      newPage = 0;
-    }
-    setContextPage(newPage);
-    router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
-  };
+  const navigate = (index: number) => {
+    setActiveIndex(index);
+    router.push(`/campanias/${LIST_OF_BRANDS[index]}`);
+  }
 
   return (
-    <nav className="w-full sticky top-0 bg-red-700 z-1 ">
-      <div className="p-4 flex justify-between items-center">
-        <button onClick={previousPage} className="bg-transparent border-none">
-          <MdOutlineKeyboardArrowLeft className="text-3xl fill-red-700 bg-white rounded-full"/>
-        </button>
-        <p className="text-lg text-white">Campañas activas</p>
-        <button onClick={nextPage} className="bg-transparent border-none">
-          <MdOutlineKeyboardArrowRight className="text-3xl fill-red-700 bg-white rounded-full"/>
-        </button>
-      </div>
-    </nav>
-  );
+    <>
+      <header className="px-4 pt-4 pb-2">
+        <p className="text-xl font-bold">Campañas activas</p>
+      </header>
+      <nav className="sticky top-0 bg-white z-10 p-4 shadow-black/60 border-gray-200">
+        <div className="flex gap-2">
+          {
+            LIST_OF_BRANDS.map((brand, index) => (
+              <button 
+                className={`min-w-16 p-2 rounded-lg ${geist.className} ${index === activeIndex ? 'bg-red-500 text-white' : 'bg-gray-100 text-black'}`}
+                key={brand}
+                onClick={() => navigate(index)}
+              >
+                {brand.toUpperCase()}
+              </button>
+            ))
+          }
+        </div>
+      </nav>
+    </>
+  )
 };
 
