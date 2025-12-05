@@ -18,7 +18,7 @@ const LIST_OF_BRANDS: string[] = ["etn", "costaline", "gho",];
 
 
 export const ActiveCampaignsNav = () => {
-  const {contextPage, saveCurrentPage} = useContext(CampaignsPageContext);
+  const {contextPage, setContextPage} = useContext(CampaignsPageContext);
   const router = useRouter();
 
   /**
@@ -30,7 +30,7 @@ export const ActiveCampaignsNav = () => {
     if (newPage < 0) {
       newPage = LIST_OF_BRANDS.length - 1;
     }
-    saveCurrentPage(newPage);
+    setContextPage(newPage);
     router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
   };
 
@@ -43,7 +43,7 @@ export const ActiveCampaignsNav = () => {
     if (newPage >= LIST_OF_BRANDS.length) {
       newPage = 0;
     }
-    saveCurrentPage(newPage);
+    setContextPage(newPage);
     router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
   };
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, JSX } from "react";
+import { parse } from "path";
+import { createContext, JSX, use, useEffect } from "react";
 import { useState } from "react";
 
 /**
@@ -8,22 +9,14 @@ import { useState } from "react";
  */
 type CampaignsPageContextType = {
   contextPage: number;
-  saveCurrentPage: (page: number) => void;
+  setContextPage: (page: number) => void;
 };
 
 /**
  * Context to manage the current page of campaigns.
  */
-export const CampaignsPageContext = createContext<CampaignsPageContextType>({contextPage: 0, saveCurrentPage: () => {}});
+export const CampaignsPageContext = createContext<CampaignsPageContextType>({contextPage: 0, setContextPage: () => {} });
   
-/**
- * Retrieve the stored page number from localStorage.
- * @returns {number} The stored page number or 0 if not found.
- */
-const getStoredPage = (): number => {
-    const storedPage = localStorage.getItem("campaignsPage");
-    return storedPage ? parseInt(storedPage) : 0;
-  }
 
 /**
  * Provider component for CampaignsPageContext.
@@ -32,19 +25,17 @@ const getStoredPage = (): number => {
  * @returns {JSX.Element} The provider component.
  */
 export default function CampaignsPageProvider({children}:{children: React.ReactNode}): JSX.Element {
-  const [contextPage, setContextPage] = useState(getStoredPage());
+  const [contextPage, setContextPage] = useState(() => {
+    const storedPage = typeof window !== "undefined" ? window.localStorage.getItem("campaignsPage") : null;
+    return storedPage ? parseInt(storedPage) : 0;
+  });
 
-  /**
-   * Save the current page number to localStorage and update the context state.
-   * @param {number} page - The page number to save.
-   */
-  const saveCurrentPage = (page: number) => {
-    localStorage.setItem("campaignsPage", page.toString());
-    setContextPage(page);
-  }
+  useEffect(() => {
+    window.localStorage.setItem("campaignsPage", contextPage.toString());
+  }, [contextPage]);
 
   return (
-    <CampaignsPageContext.Provider value={{contextPage, saveCurrentPage}}>
+    <CampaignsPageContext.Provider value={{contextPage, setContextPage}}>
       {children}
     </CampaignsPageContext.Provider>
   )
