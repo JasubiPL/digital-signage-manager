@@ -3,8 +3,18 @@ import { useFetch } from "@/app/hooks/useFetch";
 import Image from "next/image";
 import { use } from "react";
 
-export default function EtnCampaignsPage({ params}: { params: Promise<{ slug: string }> }) {
+/**
+ * page component for dynamic campaign pages based on brand slug
+ * @param {Object} params - the route parameters
+ * @param {Promise<{ slug: string }>} params.params - the slug parameter from the route
+ * @returns { JSX.Element } The rendered campaign page
+ */
+export default function CampaignsPage({ params}: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
+
+  /**
+   * Fetch campaign data for the specified brand slug
+   */
   const { data = [], loading } = useFetch(`/api/campaigns?brand=${slug}`);
   
   return (
