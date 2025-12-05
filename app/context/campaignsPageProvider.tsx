@@ -1,7 +1,6 @@
 "use client";
 
-import { parse } from "path";
-import { createContext, JSX, use, useEffect } from "react";
+import { createContext, JSX, useEffect } from "react";
 import { useState } from "react";
 
 /**

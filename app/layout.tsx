@@ -22,8 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <CampaignsPageProvider>
       <html lang="es" suppressHydrationWarning>
-        <body className="flex flex-col items-center">
-          <main className="w-full max-w-5xl">
+        <body className="flex flex-col items-center bg-white">
+          <main className="w-full max-w-3xl">
           {children}
           </main>
         </body>
