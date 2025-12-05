@@ -16,6 +16,6 @@ export default function Home() {
     saveCurrentPage(0);
   }, [saveCurrentPage]);
   
-  redirect("/campanias-etn");
+  redirect("/campanias/etn");
 }
 

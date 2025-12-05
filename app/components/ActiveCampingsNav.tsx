@@ -31,7 +31,7 @@ export const ActiveCampaignsNav = () => {
       newPage = LIST_OF_BRANDS.length - 1;
     }
     saveCurrentPage(newPage);
-    router.push(`/campanias-${LIST_OF_BRANDS[newPage]}`);
+    router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
   };
 
   /**
@@ -44,7 +44,7 @@ export const ActiveCampaignsNav = () => {
       newPage = 0;
     }
     saveCurrentPage(newPage);
-    router.push(`/campanias-${LIST_OF_BRANDS[newPage]}`);
+    router.push(`/campanias/${LIST_OF_BRANDS[newPage]}`);
   };
 
   return (
