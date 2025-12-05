@@ -2,14 +2,11 @@
 import { useFetch } from "@/app/hooks/useFetch";
 import Image from "next/image";
 
-import { MainNavBar } from "../../components/MainNavBar";
-
 export default function EtnCampaignsPage() {
   const { data = [], loading } = useFetch('/api/etn-campaigns');
   console.log(data);
   return (
     <>
-      <MainNavBar previusPage="/campanias-costaline" nextPage="/campanias-gho" title="Campañas en ETN" />
       {loading ? (
         <div>Cargando campañas...</div>
       ) : (
