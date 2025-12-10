@@ -7,6 +7,10 @@ import { CgSpinner } from "react-icons/cg"
 
 
 export default function Home() {
+
+  /**
+   * Redirect to the default campaigns page after a short delay
+   */
   useEffect(() => {
     setTimeout(() => {
       redirect("/campanias/etn");
