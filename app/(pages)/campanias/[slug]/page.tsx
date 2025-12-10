@@ -15,28 +15,48 @@ const geist = Geist({ subsets: ['latin'], weight: '500' });
  */
 export default function CampaignsPage({ params}: { params: Promise<{ slug: string }> }) {
   const [visible, setVisible] = useState(false);
+  const [modalSettings, setModalSettings] = useState({});
   const { slug } = use(params)
-  
 
   /**
    * Fetch campaign data for the specified brand slug
    */
   const { data = [], loading } = useFetch(`/api/campaigns?brand=${slug}`);
 
+  /**
+   * Handles closing the campaign details modal
+   * @return {void}
+   */
+  const closeModal = (): void => {
+    setVisible(false);
+  }
+
+  const setSettingsForModal = (url: string, title: string, locations: string, endDate: string) => {
+    setModalSettings({
+      id: "show-campaign",
+      data: {
+        urlImage: url,
+        title: title,
+        locations: locations,
+        endDate: endDate
+      }
+    });
+    setVisible(true);
+  }
   
   return (
       loading ? (
         <div>Cargando campañas...</div>
       ) : (
         <>
-          <main className="px-2">
+          <main className="px-2 bg-gray-200">
             <section className="">
               <ul className="grid rounded-xl overflow-hidden gap-0.5">
-                {data && data.map((campaign: { url: string; name: string, endDate: string }) => (
+                {data && data.map((campaign: { url: string; name: string; endDate: string; locations: string }) => (
                   <li 
-                    className="flex gap-4 p-4 bg-gray-200 rounded-xs "
+                    className="flex gap-4 p-4 bg-white rounded-xs "
                     key={campaign.name}
-                    onClick={() => setVisible(true)}
+                    onClick={() => setSettingsForModal(campaign.url, campaign.name, campaign.locations, campaign.endDate)}
                   >
                     <div className="w-14 aspect-square relative rounded-sm overflow-hidden">
                       <Image className="object-cover" 
@@ -61,13 +81,8 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
           <HelpModal 
             visible={visible} 
             title="Detalles de la campaña" 
-            settings={{
-              id: "show-campaign",
-              data:{
-                urlImage: "/test.png",
-                title: "Campaña de prueba"
-              }
-          }}/>
+            onClose={closeModal}
+            settings={modalSettings}/>
         </>
       )
   );
