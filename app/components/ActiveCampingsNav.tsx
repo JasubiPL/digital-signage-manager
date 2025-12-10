@@ -32,12 +32,12 @@ export const ActiveCampaignsNav = () => {
       <header className="px-4 pt-4 pb-2">
         <p className="text-xl font-bold">Campañas activas</p>
       </header>
-      <nav className="sticky top-0 bg-white z-10 p-4 shadow-black/60 border-gray-200">
+      <nav className="sticky top-0 bg-white z-10 p-2 shadow-black/60 border-gray-200">
         <div className="flex gap-2">
           {
             LIST_OF_BRANDS.map((brand, index) => (
               <button 
-                className={`min-w-16 p-2 rounded-lg ${geist.className} ${index === activeIndex ? 'bg-red-500 text-white' : 'bg-gray-100 text-black'}`}
+                className={`min-w-16 p-2 rounded-lg text-sm ${geist.className} ${index === activeIndex ? 'bg-red-500 text-white' : 'bg-gray-100 text-black'}`}
                 key={brand}
                 onClick={() => navigate(index)}
               >

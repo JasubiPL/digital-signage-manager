@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@theme {
+  --animate-show-modal: showModal 0.3s ease-in-out forwards;
+  --animate-hide-modal: hideModal 0.3s ease-in-out forwards;
+}
+
+@keyframes showModal {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hideModal {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}

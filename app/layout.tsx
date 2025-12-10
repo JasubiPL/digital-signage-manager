@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="flex flex-col items-center bg-white">
-        <main className="w-full max-w-3xl">
+        <main className="w-full">
         {children}
         </main>
       </body>
