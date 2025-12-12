@@ -1,8 +1,11 @@
 "use client"
-import { useFetch } from "@/app/hooks/useFetch";
+
+import Image from "next/image";
 import { use, useState } from "react";
 import { Geist } from "next/font/google";
-import Image from "next/image";
+import { FcDeleteDatabase } from "react-icons/fc";
+
+import { useFetch } from "@/app/hooks/useFetch";
 import { HelpModal } from "@/app/components/HelpModal";
 
 const geist = Geist({ subsets: ['latin'], weight: '500' });
@@ -31,14 +34,22 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
     setVisible(false);
   }
 
-  const setSettingsForModal = (url: string, title: string, locations: string, endDate: string) => {
+  /**
+   * Sets the modal settings and makes it visible
+   * @param {string} url - The URL of the campaign image
+   * @param {string} title - The title of the campaign
+   * @param {string} locations - The locations of the campaign
+   * @param {string} end_date - The end date of the campaign
+   * @return {void}
+   */
+  const setSettingsForModal = (url: string, title: string, locations: string, end_date: string) => {
     setModalSettings({
       id: "show-campaign",
       data: {
         urlImage: url,
         title: title,
         locations: locations,
-        endDate: endDate
+        endDate: end_date
       }
     });
     setVisible(true);
@@ -49,32 +60,32 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
         <div>Cargando campañas...</div>
       ) : (
         <>
-          <main className="px-2 bg-gray-200">
-            <section className="">
+          <main className="px-2 bg-gray-200 min-h-dvh">
+            <section className={`${visible ? "scroll-my-0" : ""} py-4`}>
               <ul className="grid rounded-xl overflow-hidden gap-0.5">
-                {data && data.map((campaign: { url: string; name: string; endDate: string; locations: string }) => (
+                {data.length ? data.map((campaign: { url: string; campaign: string; end_date: string; locations: string }) => (
                   <li 
                     className="flex gap-4 p-4 bg-white rounded-xs "
-                    key={campaign.name}
-                    onClick={() => setSettingsForModal(campaign.url, campaign.name, campaign.locations, campaign.endDate)}
+                    key={campaign.campaign}
+                    onClick={() => setSettingsForModal(campaign.url, campaign.campaign, campaign.locations, campaign.end_date)}
                   >
                     <div className="w-14 aspect-square relative rounded-sm overflow-hidden">
                       <Image className="object-cover" 
                         src={campaign.url} 
-                        alt={campaign.name}
+                        alt={campaign.campaign}
                         sizes="width: 100%"
                         fill
                       />
                     </div>
                     <section className="flex flex-col justify-center">
-                      <p className={`text-black font-semibold ${geist.className}`}>{campaign.name}</p>
+                      <p className={`text-black font-semibold ${geist.className}`}>{campaign.campaign}</p>
                       <p className=" text-black/80 text-sm">
-                        Fin de campaña: {campaign.endDate}
+                        Fin de campaña: {campaign.end_date}
                         </p>
                     </section>
 
                   </li>
-                ))}
+                )): <NotFound />}
               </ul>
             </section>
           </main>
@@ -86,4 +97,17 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
         </>
       )
   );
+}
+
+/** Component to display when no campaign data is found
+ * @returns {JSX.Element} The rendered not found data
+ */
+const NotFound = () => {
+  return (
+    <div className="flex flex-col items-center justify-center h-[80dvh] bg-red-700">
+      <FcDeleteDatabase size={80} />
+      <h2 className="text-5xl text-white font-bold mb-4">Sin Datos</h2>
+      <p className="text-white">La campaña que buscas no existe.</p>
+    </div>
+  )
 }
