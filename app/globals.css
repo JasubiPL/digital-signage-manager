@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-show-modal: showModal 0.3s ease-in-out forwards;
-  --animate-hide-modal: hideModal 0.3s ease-in-out forwards;
+  --animate-turn-up: turnUp 0.3s ease-in-out forwards;
+  --animate-turn-down: turnDown 0.3s ease-in-out forwards;
+  --animate-fade-in: fadeIn 0.3s ease-in-out forwards;
+  --animate-fade-out: fadeOut 0.3s ease-in-out forwards;
 }
 
-@keyframes showModal {
+@keyframes turnUp {
   from {
     transform: translateY(100%);
   }
@@ -14,13 +16,30 @@
   }
 }
 
-@keyframes hideModal {
+@keyframes turnDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
   from {
     opacity: 1;
-    transform: translateY(0);
   }
   to {
     opacity: 0;
-    transform: translateY(100%);
   }
 }

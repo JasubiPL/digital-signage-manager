@@ -43,14 +43,16 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
     });
     setVisible(true);
   }
+
+
   
   return (
       loading ? (
         <div>Cargando campañas...</div>
       ) : (
         <>
-          <main className="px-2 bg-gray-200">
-            <section className="">
+          <main className="px-2 bg-gray-200 min-h-dvh">
+            <section className={`${visible ? "scroll-my-0" : ""} py-4`}>
               <ul className="grid rounded-xl overflow-hidden gap-0.5">
                 {data && data.map((campaign: { url: string; name: string; endDate: string; locations: string }) => (
                   <li 
