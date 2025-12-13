@@ -80,7 +80,7 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
                     <section className="flex flex-col justify-center">
                       <p className={`text-black font-semibold ${geist.className}`}>{campaign.campaign}</p>
                       <p className=" text-black/80 text-sm">
-                        Fin de campaña: {campaign.end_date}
+                        Duración - {campaign.end_date}
                         </p>
                     </section>
 

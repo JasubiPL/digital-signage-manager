@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoCalendar } from "react-icons/io5";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
 type HelpModalProps = {
@@ -28,27 +28,33 @@ const ShowCampign = ({ data }: { data: CampingsSettings }) =>{
   //const [maxLocationsHeigth] = useState<string>(`max-h-[${window.innerHeight * 0.5}px]`);
 
   return (
-    <article className="w-full flex flex-col items-center gap-4">
-      <div className="w-[90%] aspect-video bg-red-600 overflow-hidden relative">
+    <article className="w-full flex flex-col items-center">
+      <div className="w-[calc(100%-2rem)] aspect-video bg-black overflow-hidden relative">
         <Image 
-          className="object-cover"
+          className="object-contain"
           src={data.urlImage || ""}
           alt={data.title || "Campaign Image"}
           fill
         />
       </div>
-      <div className="w-full flex justify-around">
-        <h3 className="w-full text-black text-lg">
+      <div className="p-4 w-full">
+        <h3 className="w-full text-black text-lg font-bold">
           {data.title}
         </h3>
-        <p className="w-full italic text-red-500 text-center text-sm">
-          Fin de campaña: {data.endDate}
+        <p className="w-full text-gray-600">
+          <span className="mr-1">
+            <IoCalendar className="inline mb-1 mr-2" />
+            Duración - 
+          </span> 
+         
+            {data.endDate}
+      
         </p>
       </div>
 
-      <section className={`pb-4 w-full flex flex-col italic text-gray-600 text-center overflow-y-auto ${/*maxLocationsHeigth*/""}`}>
-        <p className="text-red-500">Ubicaciones:</p>
-         <p className="">{data.locations}</p>
+      <section className={`px-4 w-full flex flex-col overflow-y-auto ${/*maxLocationsHeigth*/""}`}>
+        <p className="font-semibold text-lg mb-2">Ubicaciones:</p>
+        <p className="text-center">{data.locations}</p>
       </section>
     </article>
   )
@@ -139,7 +145,7 @@ export const HelpModal = ({
         </header>
         <section 
           id='modal-content'
-          className="p-4 overflow-y-auto max-h-[calc(100dvh-64px)]"
+          className="pb-8 overflow-y-auto max-h-[calc(100dvh-64px)]"
         >
           { settings.id === "show-campaign" ? <ShowCampign data={settings.data || {}} /> : null }
         </section>
