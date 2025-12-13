@@ -9,7 +9,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www.telcel.com',
+        hostname: 'www.etn.com.mx',
         pathname: '/**',
       },
     ],
