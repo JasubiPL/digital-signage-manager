@@ -1,4 +1,4 @@
-'use client"'
+'use client"
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
@@ -28,7 +28,7 @@ const ShowCampign = ({ data }: { data: CampingsSettings }) =>{
   //const [maxLocationsHeigth] = useState<string>(`max-h-[${window.innerHeight * 0.5}px]`);
 
   return (
-    <div className="w-full flex flex-col items-center gap-4">
+    <article className="w-full flex flex-col items-center gap-4">
       <div className="w-[90%] aspect-video bg-red-600 overflow-hidden relative">
         <Image 
           className="object-cover"
@@ -50,7 +50,7 @@ const ShowCampign = ({ data }: { data: CampingsSettings }) =>{
         <p className="text-red-500">Ubicaciones:</p>
          <p className="">{data.locations}</p>
       </section>
-    </div>
+    </article>
   )
 }
 
@@ -106,8 +106,11 @@ export const HelpModal = ({
   }, [visible, show]);
 
   return (
-    <section 
-      id="help-modal"
+    <div 
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-content"
       className={!show ? "hidden" : ""}
     >
       <div className={` ${isFull ? 'hidden': ''} ${modalAnimation.fadeAnimate} h-dvh w-full fixed bg-red-500/90 top-0 left-0 z-10`}
@@ -124,7 +127,7 @@ export const HelpModal = ({
           id="modal-header"
           className={`flex justify-between p-4 ${isFull ? "border-b-2 border-gray-200" : ""}`}
         >
-          <span>
+          <span aria-hidden="true">
             <IoClose className="text-white" size={32} />
           </span>
           <h2 className="font-semibold">{title}</h2>
@@ -141,6 +144,6 @@ export const HelpModal = ({
           { settings.id === "show-campaign" ? <ShowCampign data={settings.data || {}} /> : null }
         </section>
       </div>
-    </section>
+    </div>
   );
 }
