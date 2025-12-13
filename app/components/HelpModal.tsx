@@ -70,6 +70,7 @@ export const HelpModal = ({
   const [show, setShow] = useState(visible);
   const [modalAnimation, setModalAnimation] = useState({} as { moveAnimate: string; fadeAnimate: string });
   const [isFull, setIsFull] = useState<boolean>(full);
+  const [isMobile, setIsMobile] = useState<boolean>();
   const modalRef = useRef<HTMLDivElement>(null);
 
   /** 
@@ -88,6 +89,8 @@ export const HelpModal = ({
   useLayoutEffect(() => {
       setTimeout(() => {
         setIsFull(modalRef.current?.offsetHeight === window.innerHeight); 
+        setIsMobile(window.innerWidth <= 768);
+        console.log(isMobile)
       },0);
   },[show]);
 
@@ -126,8 +129,8 @@ export const HelpModal = ({
       <div
         ref={modalRef}
         className={`
-          ${!show ? "hidden" : ""} ${!isFull ? "rounded-t-3xl" : "h-screen"} max-h-dvh w-full z-10 fixed bottom-0 left-0 
-          bg-white border-t-2 border-gray-200 shadow-lg ${modalAnimation.moveAnimate} md:w-1/2 lg:w-1/3
+          ${!show ? "hidden" : ""} ${!isFull ? "rounded-t-3xl" : "h-screen"} ${!isMobile ? `rounded-b-3xl top-1/6` : "bottom-0"} max-h-dvh w-full z-10 fixed  left-0 
+          bg-white border-t-2 border-gray-200 shadow-lg ${modalAnimation.moveAnimate} md:w-6/8 md:left-1/8 lg:w-1/3  lg:left-1/3
         `}>
         <header
           id="modal-header"

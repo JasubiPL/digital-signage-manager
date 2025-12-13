@@ -57,10 +57,27 @@ export default function CampaignsPage({ params}: { params: Promise<{ slug: strin
   
   return (
       loading ? (
-        <div>Cargando campañas...</div>
+        <ul className="grid rounded-xl overflow-hidden gap-0.5 max-w-4xl mx-auto animate-pulse">
+          {[0,2,3,4,5,6,7].map((campaign: number) => (
+            <li 
+              className="flex gap-4 p-4 bg-white rounded-xs "
+              key={campaign}
+            >
+              <div className="w-14 aspect-square rounded-sm bg-gray-300">
+              </div>
+              <section className="flex flex-col justify-center">
+                <p className={`text-gray-300 bg-gray-300`}>xxxxxxxxxxxxxxx</p>
+                <p className=" text-gray-300 text-xs bg-gray-300 mt-2">
+                xxxxxxxxxxxxxxx
+                </p>
+              </section>
+
+            </li>
+          ))}
+        </ul>
       ) : (
         <>
-          <main className="px-2 bg-gray-200 min-h-dvh">
+          <main className="px-2 bg-gray-200 min-h-dvh max-w-4xl mx-auto">
             <section className={`${visible ? "scroll-my-0" : ""} py-4`}>
               <ul className="grid rounded-xl overflow-hidden gap-0.5">
                 {data.length ? data.map((campaign: { url: string; campaign: string; end_date: string; locations: string }) => (
