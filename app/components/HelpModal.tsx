@@ -54,7 +54,18 @@ const ShowCampign = ({ data }: { data: CampingsSettings }) =>{
 
       <section className={`px-4 w-full flex flex-col overflow-y-auto ${/*maxLocationsHeigth*/""}`}>
         <p className="font-semibold text-lg mb-2">Ubicaciones:</p>
-        <p className="text-center">{data.locations}</p>
+        <div className="text-center">
+          {
+            data.locations?.split(",").map((location: string) => (
+              <span 
+                key={location} 
+                className="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold m-1"           
+              >
+                {location}
+              </span>
+            ))
+          }
+        </div>
       </section>
     </article>
   )
@@ -90,7 +101,6 @@ export const HelpModal = ({
       setTimeout(() => {
         setIsFull(modalRef.current?.offsetHeight === window.innerHeight); 
         setIsMobile(window.innerWidth <= 768);
-        console.log(isMobile)
       },0);
   },[show]);
 
