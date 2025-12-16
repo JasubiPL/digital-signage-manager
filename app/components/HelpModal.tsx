@@ -101,7 +101,6 @@ export const HelpModal = ({
       setTimeout(() => {
         setIsFull(modalRef.current?.offsetHeight === window.innerHeight); 
         setIsMobile(window.innerWidth <= 768);
-        console.log(isMobile)
       },0);
   },[show]);
 
