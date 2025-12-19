@@ -12,6 +12,11 @@ module.exports = {
         hostname: 'etn.com.mx',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'edfgnazbgavhelbjgvfm.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
 };
